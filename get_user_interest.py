@@ -41,18 +41,6 @@ def get_keywords(myFetcher,uid_list):
     keywords = jieba.analyse.extract_tags(tags_str,topK=30,withWeight=True)
     return keywords
 
-def find_topic(weibos):
-    '''
-        weibos:unicode,用户所有微博拼接成的字符串
-    '''
-    topic_list = re.findall(r'#.*?#',weibos)
-    topics = [re.sub('#','',topic) for topic in topic_list]
-    counter = Counter(topics)
-    top_topics = counter.most_common()
-    with open('topics.txt','w') as fw:
-        for item in top_topics:
-            fw.write("%s\t%d\n"%(item[0],item[1]))
-
 def get_interest(uid,username,passwd):
     '''
         uid:用户id,unicode
@@ -87,7 +75,6 @@ def get_interest(uid,username,passwd):
 
     user_weibos = myFetcher.get_user_weibos(uid)
     weibos = ".".join(user_weibos)
-    find_topic(weibos)
 
     content_interest = {}#从用户发布的微博信息中提取的兴趣关键词
     words = jieba.cut(weibos)

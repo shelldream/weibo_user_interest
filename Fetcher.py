@@ -96,7 +96,7 @@ class Fetcher(object):
         while len(outputs) <= topk and page < 30:
             home_url = 'http://weibo.cn/u/' + str(uid) + "?page=" + str(page)
             HTML_str = self.openURL(home_url,0)
-            time.sleep(0.5)
+            time.sleep(0.3)
             if page == 1:
                 weibos = re.findall(r'<span class="ctt">.*?</span>',HTML_str)[3:]
             else: 
@@ -121,7 +121,7 @@ class Fetcher(object):
         while page <= 15:
             follows_page = 'http://weibo.cn/' + str(uid) + "/follow?page=" + str(page)
             HTML_str = self.openURL(follows_page)
-            time.sleep(0.5)
+            time.sleep(0.3)
             follows = HTML_str.xpath('//td[@ valign="top"]/a')
             #print len(follows)
             for item in follows:
